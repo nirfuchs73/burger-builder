@@ -24,6 +24,16 @@ class BurgerBuilder extends Component {
       meat: 0,
     },
     totalPrice: 4,
+    isOrderEnable: false,
+  }
+
+  setIsOrderEnable = () => {
+    var ingredients = { ...this.state.ingredients };
+    let sum = 0;
+    for (let key in ingredients) {
+      sum += ingredients[key];
+    }
+    this.setState({ isOrderEnable: sum > 0 })
   }
 
   addIngredient = (type) => {
@@ -33,6 +43,8 @@ class BurgerBuilder extends Component {
     this.setState({
       ingredients: ingredients,
       totalPrice: totalPrice,
+    }, () => {
+      this.setIsOrderEnable();
     });
   }
 
@@ -44,6 +56,8 @@ class BurgerBuilder extends Component {
     this.setState({
       ingredients: ingredients,
       totalPrice: totalPrice,
+    }, () => {
+      this.setIsOrderEnable();
     });
   }
 
@@ -60,6 +74,7 @@ class BurgerBuilder extends Component {
           addIngredient={this.addIngredient}
           removeIngredient={this.removeIngredient}
           disabled={disabledInfo}
+          isOrderEnable={this.state.isOrderEnable}
           price={this.state.totalPrice} />
 
       </Aux>

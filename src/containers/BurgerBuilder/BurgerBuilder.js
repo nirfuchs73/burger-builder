@@ -38,6 +38,10 @@ class BurgerBuilder extends Component {
     this.setState({ orderButtonClicked: false })
   }
 
+  setOrderingContinue = () => {
+    alert('You continue!');
+  }
+
   setIsOrderEnable = () => {
     var ingredients = { ...this.state.ingredients };
     let sum = 0;
@@ -81,7 +85,10 @@ class BurgerBuilder extends Component {
     return (
       <Aux>
         <Modal show={this.state.orderButtonClicked} modalClosed={this.setOrderingCancel}>
-          <OrderSummary ingredients={this.state.ingredients} />
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            orderCancel={this.setOrderingCancel}
+            orderContinue={this.setOrderingContinue} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
@@ -91,7 +98,6 @@ class BurgerBuilder extends Component {
           isOrderEnable={this.state.isOrderEnable}
           setOrdering={this.setOrdering}
           price={this.state.totalPrice} />
-
       </Aux>
     );
   }

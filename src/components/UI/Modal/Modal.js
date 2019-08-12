@@ -20,7 +20,7 @@ class Modal extends Component {
         <div
           className={classes.Modal}
           style={{
-            transform: this.props.show ? 'translateY(0)' : 'translateY(-100hv)',
+            transform: this.props.show ? 'translateY(0)' : 'translateY(-100%)',
             opacity: this.props.show ? '1' : '0',
             zIndex: this.props.show ? '500' : '-1'
           }}>

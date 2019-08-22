@@ -41,10 +41,7 @@ class ContactData extends Component {
         console.log(err);
       })
       .finally(res => {
-        this.setState({
-          loading: false,
-          // orderButtonClicked: false,
-        });
+        this.setState({ loading: false });
         this.props.history.push('/');
       });
   }

@@ -10,13 +10,6 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import * as actionTypes from '../../store/actions';
 
-const INGREDIENT_PRICES = {
-  salad: 0.5,
-  cheese: 0.4,
-  meat: 1.3,
-  bacon: 0.7,
-}
-
 class BurgerBuilder extends Component {
   // constructor(props) {
   //   super(props);
@@ -25,7 +18,7 @@ class BurgerBuilder extends Component {
   // }
   state = {
     // ingredients: null,
-    totalPrice: 4,
+    // totalPrice: 4,
     isOrderEnable: false,
     orderButtonClicked: false,
     loading: false,
@@ -61,7 +54,7 @@ class BurgerBuilder extends Component {
     for (let i in this.state.ingredients) {
       queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
     }
-    queryParams.push('price=' + this.state.totalPrice)
+    queryParams.push('price=' + this.props.totalPrice)
     const queryString = queryParams.join('&');
 
     this.props.history.push({
@@ -78,31 +71,6 @@ class BurgerBuilder extends Component {
     }
     this.setState({ isOrderEnable: sum > 0 })
   }
-
-  // addIngredient = (type) => {
-  //   const ingredients = { ...this.state.ingredients };
-  //   ingredients[type] = this.state.ingredients[type] + 1;
-  //   const totalPrice = this.state.totalPrice + INGREDIENT_PRICES[type];
-  //   this.setState({
-  //     ingredients: ingredients,
-  //     totalPrice: totalPrice,
-  //   }, () => {
-  //     this.setIsOrderEnable();
-  //   });
-  // }
-
-  // removeIngredient = (type) => {
-  //   if (this.state.ingredients[type] <= 0) return;
-  //   const ingredients = { ...this.state.ingredients };
-  //   ingredients[type] = this.state.ingredients[type] - 1;
-  //   const totalPrice = this.state.totalPrice - INGREDIENT_PRICES[type];
-  //   this.setState({
-  //     ingredients: ingredients,
-  //     totalPrice: totalPrice,
-  //   }, () => {
-  //     this.setIsOrderEnable();
-  //   });
-  // }
 
   render() {
     const disabledInfo = { ...this.props.ingredients };
@@ -121,13 +89,13 @@ class BurgerBuilder extends Component {
             disabled={disabledInfo}
             isOrderEnable={this.state.isOrderEnable}
             setOrdering={this.setOrdering}
-            price={this.state.totalPrice} />
+            price={this.props.totalPrice} />
         </Aux>
       );
 
       orderSummary = <OrderSummary
         ingredients={this.props.ingredients}
-        price={this.state.totalPrice}
+        price={this.props.totalPrice}
         orderCancel={this.setOrderingCancel}
         orderContinue={this.setOrderingContinue} />;
     }
@@ -150,6 +118,7 @@ class BurgerBuilder extends Component {
 const mapStateToProps = (state) => {
   return {
     ingredients: state.ingredients,
+    totalPrice: state.totalPrice,
   }
 }
 

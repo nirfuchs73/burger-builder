@@ -19,7 +19,7 @@ class BurgerBuilder extends Component {
   state = {
     // ingredients: null,
     // totalPrice: 4,
-    isOrderEnable: false,
+    // isOrderEnable: false,
     orderButtonClicked: false,
     loading: false,
     error: false,
@@ -48,28 +48,16 @@ class BurgerBuilder extends Component {
   }
 
   setOrderingContinue = () => {
-    // alert('You continue!');
-
-    const queryParams = [];
-    for (let i in this.state.ingredients) {
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
-    }
-    queryParams.push('price=' + this.props.totalPrice)
-    const queryString = queryParams.join('&');
-
-    this.props.history.push({
-      pathname: '/checkout',
-      search: '?' + queryString,
-    });
+    this.props.history.push('/checkout');
   }
 
   setIsOrderEnable = () => {
-    var ingredients = { ...this.state.ingredients };
+    var ingredients = { ...this.props.ingredients };
     let sum = 0;
     for (let key in ingredients) {
       sum += ingredients[key];
     }
-    this.setState({ isOrderEnable: sum > 0 })
+    return sum > 0;
   }
 
   render() {
@@ -87,7 +75,7 @@ class BurgerBuilder extends Component {
             addIngredient={this.props.addIngredient}
             removeIngredient={this.props.removeIngredient}
             disabled={disabledInfo}
-            isOrderEnable={this.state.isOrderEnable}
+            isOrderEnable={this.setIsOrderEnable()}
             setOrdering={this.setOrdering}
             price={this.props.totalPrice} />
         </Aux>

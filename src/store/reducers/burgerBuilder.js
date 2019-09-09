@@ -39,7 +39,15 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, { ingredients: ingredients, totalPrice: totalPrice });
 
     case actionTypes.SET_INGREDIENTS:
-      return Object.assign({}, state, { ingredients: action.ingredients, error: false });
+      return Object.assign({}, state, {
+        ingredients: {
+          salad: action.ingredients.salad,
+          cheese: action.ingredients.cheese,
+          bacon: action.ingredients.bacon,
+          meat: action.ingredients.meat,
+        },
+        error: false
+      });
 
     case actionTypes.FETCH_INGREDIENTS_FAILED:
       return Object.assign({}, state, { error: true });

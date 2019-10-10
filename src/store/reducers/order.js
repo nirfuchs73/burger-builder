@@ -28,6 +28,18 @@ const reducer = (state = initialState, action) => {
     case actionTypes.PURCHASE_BURGER_FAIL:
       return Object.assign({}, state, { loading: false });
 
+    case actionTypes.FETCH_ORDERS_START:
+      return Object.assign({}, state, { loading: true });
+
+    case actionTypes.FETCH_ORDERS_SUCCESS:
+      return Object.assign({}, state, {
+        orders: action.orders,
+        loading: false
+      });
+
+    case actionTypes.FETCH_ORDERS_FAIL:
+      return Object.assign({}, state, { loading: false });
+
     default:
       return state;
   }
